@@ -142,6 +142,7 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
 }
 
 - (void)generateAccessorMethods {
+    @autoreleasepool {
     unsigned int count = 0;
     objc_property_t *properties = class_copyPropertyList([self class], &count);
 
@@ -233,6 +234,7 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
     }
 
     free(properties);
+    }
 }
 
 @end
