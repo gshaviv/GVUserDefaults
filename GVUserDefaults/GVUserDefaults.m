@@ -117,8 +117,12 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
 - (id)init {
     self = [super init];
     if (self) {
-        if ([self respondsToSelector:@selector(setupDefaults)]) {
-            NSDictionary *defaults = [self performSelector:@selector(setupDefaults)];
+        SEL selector = NSSelectorFromString([NSString stringWithFormat:@"setup%@",@"Defaults"]);
+        if ([self respondsToSelector:selector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            NSDictionary *defaults = [self performSelector:selector];
+#pragma clang diagnostic pop
             NSMutableDictionary *mutableDefaults = [NSMutableDictionary dictionaryWithCapacity:[defaults count]];
             for (NSString *key in defaults) {
                 id value = [defaults objectForKey:key];
