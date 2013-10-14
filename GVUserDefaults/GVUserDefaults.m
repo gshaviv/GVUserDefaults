@@ -114,6 +114,9 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
     return sharedInstance;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wundeclared-selector"
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -144,6 +147,8 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
 
     return key;
 }
+
+#pragma GCC diagnostic pop
 
 - (void)generateAccessorMethods {
     @autoreleasepool {
