@@ -29,7 +29,8 @@ enum TypeEncodings {
     UnsignedLongLong    = 'Q',
     Float               = 'f',
     Double              = 'd',
-    Object              = '@'
+    Object              = '@',
+    Bool                = 'B'
 };
 
 - (NSString *)defaultsKeyForPropertyNamed:(char const *)propertyName {
@@ -64,7 +65,7 @@ static void boolSetter(GVUserDefaults *self, SEL _cmd, bool value) {
 
 static int integerGetter(GVUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    return [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:key];
 }
 
 static void integerSetter(GVUserDefaults *self, SEL _cmd, int value) {
@@ -205,6 +206,7 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
 
             case Bool:
             case Char:
+            case Bool:
                 getterImp = (IMP)boolGetter;
                 setterImp = (IMP)boolSetter;
                 break;
