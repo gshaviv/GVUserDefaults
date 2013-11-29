@@ -30,7 +30,6 @@ enum TypeEncodings {
     Float               = 'f',
     Double              = 'd',
     Object              = '@',
-    Bool                = 'B'
 };
 
 - (NSString *)defaultsKeyForPropertyNamed:(char const *)propertyName {
@@ -204,7 +203,6 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
                 setterImp = (IMP)longLongSetter;
                 break;
 
-            case Bool:
             case Char:
             case Bool:
                 getterImp = (IMP)boolGetter;
