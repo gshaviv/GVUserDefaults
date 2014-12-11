@@ -8,6 +8,7 @@
 
 #import "GVUserDefaults.h"
 #import <objc/runtime.h>
+#import "AppDefaults.h"
 
 @interface GVUserDefaults ()
 @property (strong, nonatomic) NSMutableDictionary *mapping;
@@ -43,66 +44,66 @@ enum TypeEncodings {
 
 static long long longLongGetter(GVUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:key] longLongValue];
+    return [[[HouzzUserDefaults userDefaults] objectForKey:key] longLongValue];
 }
 
 static void longLongSetter(GVUserDefaults *self, SEL _cmd, long long value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
     NSNumber *object = [NSNumber numberWithLongLong:value];
-    [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
+    [[HouzzUserDefaults userDefaults] setObject:object forKey:key];
 }
 
 static bool boolGetter(GVUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
+    return [[HouzzUserDefaults userDefaults] boolForKey:key];
 }
 
 static void boolSetter(GVUserDefaults *self, SEL _cmd, bool value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [[NSUserDefaults standardUserDefaults] setBool:value forKey:key];
+    [[HouzzUserDefaults userDefaults] setBool:value forKey:key];
 }
 
 static int integerGetter(GVUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:key];
+    return (int)[[HouzzUserDefaults userDefaults] integerForKey:key];
 }
 
 static void integerSetter(GVUserDefaults *self, SEL _cmd, int value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [[NSUserDefaults standardUserDefaults] setInteger:value forKey:key];
+    [[HouzzUserDefaults userDefaults] setInteger:value forKey:key];
 }
 
 static float floatGetter(GVUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    return [[NSUserDefaults standardUserDefaults] floatForKey:key];
+    return [[HouzzUserDefaults userDefaults] floatForKey:key];
 }
 
 static void floatSetter(GVUserDefaults *self, SEL _cmd, float value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [[NSUserDefaults standardUserDefaults] setFloat:value forKey:key];
+    [[HouzzUserDefaults userDefaults] setFloat:value forKey:key];
 }
 
 static double doubleGetter(GVUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    return [[NSUserDefaults standardUserDefaults] doubleForKey:key];
+    return [[HouzzUserDefaults userDefaults] doubleForKey:key];
 }
 
 static void doubleSetter(GVUserDefaults *self, SEL _cmd, double value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [[NSUserDefaults standardUserDefaults] setDouble:value forKey:key];
+    [[HouzzUserDefaults userDefaults] setDouble:value forKey:key];
 }
 
 static id objectGetter(GVUserDefaults *self, SEL _cmd) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    return [[HouzzUserDefaults userDefaults] objectForKey:key];
 }
 
 static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
     if (object) {
-        [[NSUserDefaults standardUserDefaults] setObject:object forKey:key];
+        [[HouzzUserDefaults userDefaults] setObject:object forKey:key];
     } else {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+        [[HouzzUserDefaults userDefaults] removeObjectForKey:key];
     }
 }
 
@@ -133,7 +134,7 @@ static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
                 NSString *transformedKey = [self _transformKey:key];
                 [mutableDefaults setObject:value forKey:transformedKey];
             }
-            [[NSUserDefaults standardUserDefaults] registerDefaults:mutableDefaults];
+            [[HouzzUserDefaults userDefaults] registerDefaults:mutableDefaults];
         }
 
         [self generateAccessorMethods];
