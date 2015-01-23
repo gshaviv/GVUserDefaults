@@ -100,11 +100,13 @@ static id objectGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
+    [self willChangeValueForKey:key];
     if (object) {
         [[HouzzUserDefaults userDefaults] setObject:object forKey:key];
     } else {
         [[HouzzUserDefaults userDefaults] removeObjectForKey:key];
     }
+    [self didChangeValueForKey:key];
 }
 
 #pragma mark - Begin
