@@ -67,8 +67,10 @@ static long long longLongGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void longLongSetter(GVUserDefaults *self, SEL _cmd, long long value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
+    [self willChangeValueForKey:key];
     NSNumber *object = [NSNumber numberWithLongLong:value];
     [self.userDefaults setObject:object forKey:key];
+    [self didChangeValueForKey:key];
 }
 
 static bool boolGetter(GVUserDefaults *self, SEL _cmd) {
@@ -78,7 +80,9 @@ static bool boolGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void boolSetter(GVUserDefaults *self, SEL _cmd, bool value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
+    [self willChangeValueForKey:key];
     [self.userDefaults setBool:value forKey:key];
+    [self didChangeValueForKey:key];
 }
 
 static int integerGetter(GVUserDefaults *self, SEL _cmd) {
@@ -88,7 +92,9 @@ static int integerGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void integerSetter(GVUserDefaults *self, SEL _cmd, int value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
+    [self willChangeValueForKey:key];
     [self.userDefaults setInteger:value forKey:key];
+    [self didChangeValueForKey:key];
 }
 
 static float floatGetter(GVUserDefaults *self, SEL _cmd) {
@@ -98,7 +104,9 @@ static float floatGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void floatSetter(GVUserDefaults *self, SEL _cmd, float value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
+    [self willChangeValueForKey:key];
     [self.userDefaults setFloat:value forKey:key];
+    [self didChangeValueForKey:key];
 }
 
 static double doubleGetter(GVUserDefaults *self, SEL _cmd) {
@@ -108,7 +116,9 @@ static double doubleGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void doubleSetter(GVUserDefaults *self, SEL _cmd, double value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
+    [self willChangeValueForKey:key];
     [self.userDefaults setDouble:value forKey:key];
+    [self didChangeValueForKey:key];
 }
 
 static id objectGetter(GVUserDefaults *self, SEL _cmd) {
