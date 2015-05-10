@@ -10,6 +10,14 @@
 #import <objc/runtime.h>
 #import "AppDefaults.h"
 
+NSString* cmdToKey(SEL cmd) {
+    // assume here cmd is a setter command
+    NSString *cmdString = NSStringFromSelector(cmd);
+    NSString *rest = [cmdString substringWithRange:NSMakeRange(4, cmdString.length-5)];
+    NSString *firstLetter = [cmdString substringWithRange:NSMakeRange(3, 1)];
+    return [[firstLetter lowercaseString] stringByAppendingString:rest];
+}
+
 @interface GVUserDefaults ()
 @property (strong, nonatomic) NSMutableDictionary *mapping;
 @property (strong, nonatomic) NSUserDefaults *userDefaults;
@@ -67,10 +75,10 @@ static long long longLongGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void longLongSetter(GVUserDefaults *self, SEL _cmd, long long value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [self willChangeValueForKey:key];
+    [self willChangeValueForKey:cmdToKey(_cmd)];
     NSNumber *object = [NSNumber numberWithLongLong:value];
     [self.userDefaults setObject:object forKey:key];
-    [self didChangeValueForKey:key];
+    [self didChangeValueForKey:cmdToKey(_cmd)];
 }
 
 static bool boolGetter(GVUserDefaults *self, SEL _cmd) {
@@ -80,9 +88,9 @@ static bool boolGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void boolSetter(GVUserDefaults *self, SEL _cmd, bool value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [self willChangeValueForKey:key];
+    [self willChangeValueForKey:cmdToKey(_cmd)];
     [self.userDefaults setBool:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self didChangeValueForKey:cmdToKey(_cmd)];
 }
 
 static int integerGetter(GVUserDefaults *self, SEL _cmd) {
@@ -92,9 +100,9 @@ static int integerGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void integerSetter(GVUserDefaults *self, SEL _cmd, int value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [self willChangeValueForKey:key];
+    [self willChangeValueForKey:cmdToKey(_cmd)];
     [self.userDefaults setInteger:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self didChangeValueForKey:cmdToKey(_cmd)];
 }
 
 static float floatGetter(GVUserDefaults *self, SEL _cmd) {
@@ -104,9 +112,9 @@ static float floatGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void floatSetter(GVUserDefaults *self, SEL _cmd, float value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [self willChangeValueForKey:key];
+    [self willChangeValueForKey:cmdToKey(_cmd)];
     [self.userDefaults setFloat:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self didChangeValueForKey:cmdToKey(_cmd)];
 }
 
 static double doubleGetter(GVUserDefaults *self, SEL _cmd) {
@@ -116,9 +124,9 @@ static double doubleGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void doubleSetter(GVUserDefaults *self, SEL _cmd, double value) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [self willChangeValueForKey:key];
+    [self willChangeValueForKey:cmdToKey(_cmd)];
     [self.userDefaults setDouble:value forKey:key];
-    [self didChangeValueForKey:key];
+    [self didChangeValueForKey:cmdToKey(_cmd)];
 }
 
 static id objectGetter(GVUserDefaults *self, SEL _cmd) {
@@ -128,13 +136,13 @@ static id objectGetter(GVUserDefaults *self, SEL _cmd) {
 
 static void objectSetter(GVUserDefaults *self, SEL _cmd, id object) {
     NSString *key = [self defaultsKeyForSelector:_cmd];
-    [self willChangeValueForKey:key];
+    [self willChangeValueForKey:cmdToKey(_cmd)];
     if (object) {
         [self.userDefaults setObject:object forKey:key];
     } else {
         [self.userDefaults removeObjectForKey:key];
     }
-    [self didChangeValueForKey:key];
+    [self didChangeValueForKey:cmdToKey(_cmd)];
 }
 
 #pragma mark - Begin
