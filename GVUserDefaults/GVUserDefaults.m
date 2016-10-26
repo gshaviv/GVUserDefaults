@@ -44,7 +44,6 @@ enum TypeEncodings {
 
 - (NSUserDefaults *)userDefaults {
     if (!_userDefaults) {
-#ifndef TUNGSTEN
         NSString *suiteName = nil;
         if ([NSUserDefaults instancesRespondToSelector:@selector(initWithSuiteName:)]) {
             suiteName = [self _suiteName];
@@ -55,9 +54,6 @@ enum TypeEncodings {
         } else {
             _userDefaults = [NSUserDefaults standardUserDefaults];
         }
-#else
-        _userDefaults = [NSUserDefaults standardUserDefaults];
-#endif
     }
 
     return _userDefaults;
