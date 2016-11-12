@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Gangverk. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface GVUserDefaults : NSObject
 

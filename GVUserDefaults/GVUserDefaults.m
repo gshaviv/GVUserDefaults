@@ -7,7 +7,7 @@
 //
 
 #import "GVUserDefaults.h"
-#import <objc/runtime.h>
+@import ObjectiveC.runtime;
 #import "AppDefaults.h"
 
 NSString* cmdToKey(SEL cmd) {
