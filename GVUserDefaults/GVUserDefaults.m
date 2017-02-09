@@ -8,7 +8,6 @@
 
 #import "GVUserDefaults.h"
 @import ObjectiveC.runtime;
-#import "AppDefaults.h"
 
 NSString* cmdToKey(SEL cmd) {
     // assume here cmd is a setter command
